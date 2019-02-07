@@ -1,0 +1,18 @@
+﻿@model List<OnlineShop.Models.ProductModel>
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+<a href="/products/create">Create</a>
+@foreach (var product in Model)
+{
+    <span>@product.Id</span>
+    <hr />
+    <span>@product.ProductName</span>
+    <hr />
+    <span>@product.ProductPrice</span>
+    <hr />
+    <span>@product.ProductPhotoURL</span>
+}
+

@@ -1,0 +1,26 @@
+﻿@model OnlineShop.Models.ProductModel
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1>Create</h1>
+<form asp-action="Create" method="post">
+
+    <label>
+        Product Name:
+        <input name="ProductName" />
+    </label>
+    <br />
+    <label>
+        Product Price:
+        <input name="ProductPrice" />
+    </label>
+    <br />
+    <label>
+        Product Photo URL:
+        <input name="ProductPhotoURL" />
+    </label>
+    <br />
+
+    <input type="submit" value="Create" />
+</form>
