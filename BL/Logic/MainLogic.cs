@@ -2,6 +2,8 @@
 using OnlineShop.Models;
 using System;
 using System.Collections.Generic;
+using System.Data.SqlClient;
+using System.Threading.Tasks;
 
 namespace BL
 {
@@ -18,12 +20,12 @@ namespace BL
             products = db.GetProducts();
             foreach (ProductModel product in products)
             {
-                //if (product.Id == 0)
-                //{
-                //    product.ProductName = "Invalid";
-                //    product.ProductPrice = 0;
-                //    product.ProductPhotoURL = "Invalid";
-                //}
+                if (product.Id == 0)
+                {
+                    product.ProductName = "Invalid";
+                    product.ProductPrice = 0;
+                    product.ProductPhotoURL = "Invalid";
+                }
             }
             return products;
         }
@@ -38,5 +40,36 @@ namespace BL
                 throw new Exception("Cannot insert null value");
             }
         }
+
+        public void DeleteSelectedProduct(int id)
+        {
+            if (id != 0)
+            {
+                db.DeleteProduct(id);
+            }
+            else
+            {
+                throw new Exception("Cannot delete");
+            }
+        }
+
+        public bool EditProductExists(int id)
+        {
+            bool prodexists = db.ProductExists(id);
+            return prodexists;
+        }
+
+        public ProductModel FoundProduct(int id)
+        {
+            ProductModel returning = db.FindProduct(id);
+            return returning;
+        }
+
+        public void SaveEditedProduct(ProductModel product)
+        {
+            db.SaveUpdatedProduct(product);
+        }
+
+
     }
 }

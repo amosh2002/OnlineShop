@@ -1,5 +1,6 @@
-﻿using System.Data.SqlClient;
-
+﻿using OnlineShop.Models;
+using System.Data.SqlClient;
+using System.Threading.Tasks;
 
 namespace DAL
 {

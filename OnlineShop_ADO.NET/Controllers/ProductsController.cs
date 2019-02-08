@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using BL;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using OnlineShop.Models;
 
 namespace OnlineShop_ADO.NET.Controllers
@@ -48,5 +50,65 @@ namespace OnlineShop_ADO.NET.Controllers
             }
             return RedirectToAction(nameof(Index));
         }
+
+        [HttpGet]
+        public IActionResult Delete(int id)
+        {
+            ml.DeleteSelectedProduct(id);
+            return RedirectToAction(nameof(Index));
+        }
+
+        public IActionResult Edit(int id)
+        {
+            if (id == 0)
+            {
+                return NotFound();
+            }
+
+            ProductModel product = new ProductModel();
+            product = ml.FoundProduct(id);
+
+            if (product == null)
+            {
+                return NotFound();
+            }
+
+            return View(product);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult Edit(ProductModel product)
+        {
+        
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    ml.SaveEditedProduct(product);
+                }
+                catch (DbUpdateConcurrencyException ex)
+                {
+                    Debug.WriteLine(ex.Message);
+                }
+                return RedirectToAction(nameof(Index));
+            }
+
+            return View(product);
+        }
+
+        public IActionResult Details(int id)
+        {
+
+            var student = ml.FoundProduct(id);
+
+            if (student == null)
+            {
+                return NotFound();
+            }
+
+            return View(student);
+        }
+
     }
 }
