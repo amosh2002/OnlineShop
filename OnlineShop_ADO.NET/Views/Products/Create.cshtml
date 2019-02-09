@@ -3,24 +3,38 @@
     ViewData["Title"] = "Create";
 }
 
-<h1>Create</h1>
-<form asp-action="Create" method="post">
+<h1>Create new product</h1>
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create" method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="ProductName" class="control-label"></label>
+                <input asp-for="ProductName" class="form-control" />
+                <span asp-validation-for="ProductName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ProductPrice" class="control-label"></label>
+                <input asp-for="ProductPrice" class="form-control" />  $
+                <span asp-validation-for="ProductPrice" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ProductPhotoURL" class="control-label"></label>
+                <input asp-for="ProductPhotoURL" class="form-control" />
+                <span asp-validation-for="ProductPhotoURL" class="text-danger"></span>
+            </div>
 
-    <label>
-        Product Name:
-        <input name="ProductName" />
-    </label>
-    <br />
-    <label>
-        Product Price:
-        <input name="ProductPrice" />
-    </label>
-    <br />
-    <label>
-        Product Photo URL:
-        <input name="ProductPhotoURL" />
-    </label>
-    <br />
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
 
-    <input type="submit" value="Create" />
-</form>
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

@@ -18,18 +18,21 @@ namespace OnlineShop_ADO.NET.Controllers
         {
             ml = new MainLogic();
         }
+
         public IActionResult Index()
         {
             List<ProductModel> prod = new List<ProductModel>();
             prod = ml.GetAllProducts();
             return View(prod);
         }
+
         [HttpGet]
         public IActionResult Create()
         {
             return View();
         }
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public IActionResult Create(ProductModel prod)
         {
             try
@@ -75,7 +78,6 @@ namespace OnlineShop_ADO.NET.Controllers
 
             return View(product);
         }
-
         [HttpPost]
         [ValidateAntiForgeryToken]
         public IActionResult Edit(ProductModel product)
